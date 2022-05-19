@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import MiniDrawer from "./components/Drawer/Drawer";
 
-function App() {
+const App = () => {
+  const [doctorDetails, setDoctorDetails] = useState([]);
+  const fetchData = async () => {
+    const response = await axios.get("https://619f39821ac52a0017ba467e.mockapi.io/patientDetails");
+    setDoctorDetails(response.data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <MiniDrawer doctorDetails={doctorDetails} />
     </div>
   );
-}
+};
 
 export default App;
